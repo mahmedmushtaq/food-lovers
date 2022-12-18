@@ -3,9 +3,9 @@ import { ArgsType, Field } from "type-graphql";
 @ArgsType()
 export class SignUpUserArgs {
   @Field({ nullable: false })
-  first_name: string;
+  firstName: string;
   @Field({ nullable: false })
-  last_name: string;
+  lastName: string;
 
   @Field((type) => String, { nullable: false })
   email: string;
@@ -14,5 +14,5 @@ export class SignUpUserArgs {
   password: string;
 
   @Field({ nullable: true })
-  phone_number?: string;
+  phoneNumber?: string;
 }

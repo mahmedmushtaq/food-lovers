@@ -1,7 +1,5 @@
 import { DataSource, DeepPartial, EntityTarget, ObjectLiteral } from "typeorm";
 import { config } from "../config";
-import { UserEntity } from "./entities/UserEntity";
-import { RestaurantEntity } from "./entities/RestaurantEntity";
 import { RestaurantImagesEntity } from "./entities/RestaurantImagesEntity";
 import { FeedbackEntity } from "./entities/FeedbackEntity";
 import { User } from "../graphql/schema/User";

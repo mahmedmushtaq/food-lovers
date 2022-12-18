@@ -10,7 +10,6 @@ import {
 } from "type-graphql";
 import { User } from "../../schema/User";
 import { SignUpUserArgs } from "./types";
-import { UserEntity } from "../../../database/entities/UserEntity";
 import { encodePassword, generateToken } from "../../../utils/helpers";
 import { db } from "../../../database/db";
 import { Restaurant } from "../../schema/Restaurant";
@@ -24,7 +23,7 @@ export class UserResolver {
 
   @Query(() => [User], { nullable: true })
   async users(): Promise<User[] | null> {
-    const users = await UserEntity.find({ relations: { restaurants: true } });
+    const users = await User.find({ relations: { restaurants: true } });
     console.log("users ", users);
     return users;
   }
@@ -32,21 +31,14 @@ export class UserResolver {
   @Mutation(() => User)
   async createUser(
     @Args()
-    {
-      first_name,
-      last_name,
-      email,
-      password,
-
-      phone_number,
-    }: SignUpUserArgs
+    { firstName, lastName, email, password, phoneNumber }: SignUpUserArgs
   ) {
-    const user = UserEntity.create({
-      first_name,
-      last_name,
+    const user = User.create({
+      firstName,
+      lastName,
       email,
       password: await encodePassword(password),
-      phone_number,
+      phoneNumber,
     });
 
     await user.save();

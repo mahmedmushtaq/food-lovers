@@ -3,7 +3,7 @@ import { validateToken } from "../../utils/helpers";
 import { Request } from "express";
 import { IGraphQLCotext } from "../../utils/globalTypes";
 import { db } from "../../database/db";
-import { UserEntity } from "../../database/entities/UserEntity";
+import { User } from "../schema/User";
 
 type IRolesType = "admin" | "user";
 
@@ -21,7 +21,7 @@ export const authorization: AuthChecker<IGraphQLCotext, IRolesType[]> = async (
 
   if (user) {
     // check is user present in db so we can return false also if user deleted from the db
-    const userPayload = await UserEntity.findOneBy({ id: user.id });
+    const userPayload = await User.findOneBy({ id: user.id });
 
     if (!userPayload) return false;
 

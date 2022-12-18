@@ -1,9 +1,11 @@
 import { Field, ObjectType, ID, Int } from "type-graphql";
 import { Base } from "./Base";
 import { User } from "./User";
-import { Column, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { RestaurantImagesEntity } from "../../database/entities/RestaurantImagesEntity";
 
 @ObjectType({ description: "Restaurant Schema" })
+@Entity()
 export class Restaurant extends Base {
   @Field()
   @Column()
@@ -23,7 +25,7 @@ export class Restaurant extends Base {
 
   @Field()
   @Column()
-  main_img: string;
+  mainImg: string;
 
   @Field((type) => Int)
   @Column()
@@ -36,6 +38,13 @@ export class Restaurant extends Base {
   @Field({ nullable: true })
   @Column()
   website?: string;
+
+  //   @Field()
+  //   @OneToMany(
+  //     () => RestaurantImagesEntity,
+  //     (restaurantImages) => restaurantImages.restaurant
+  //   )
+  //   images: RestaurantImagesEntity[];
 
   @Field((type) => User)
   @ManyToOne(() => User, (user) => user.restaurants, { nullable: false })

@@ -1,9 +1,8 @@
 import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Base } from "./BaseEntity";
-import { UserEntity } from "./UserEntity";
 import { User } from "../../graphql/schema/User";
 
-@Entity({name: "feedback"})
+@Entity({ name: "feedback" })
 export class FeedbackEntity extends Base {
   @Column()
   description: string;
@@ -11,7 +10,7 @@ export class FeedbackEntity extends Base {
   @Column({ type: "numeric" })
   rating: number;
 
-  @ManyToOne(() => User, (user) => user.feedbacks)
-  @JoinColumn({ name: "user_id" })
-  user: User;
+  // @ManyToOne(() => User, (user) => user.feedbacks)
+  // @JoinColumn({ name: "user_id" })
+  // user: User;
 }

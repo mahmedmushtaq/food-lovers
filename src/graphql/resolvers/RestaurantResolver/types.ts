@@ -15,7 +15,7 @@ export class CreateRestaurantArgs {
   city: string;
 
   @Field()
-  main_img: string;
+  mainImg: string;
 
   @Field((type) => Int, { nullable: true })
   rating: number;

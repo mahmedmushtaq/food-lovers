@@ -8,17 +8,11 @@ import {
   Query,
   Resolver,
   Root,
-  UseMiddleware,
 } from "type-graphql";
 
-import { db } from "../../../database/db";
 import { Restaurant } from "../../schema/Restaurant";
-import { RestaurantEntity } from "../../../database/entities/RestaurantEntity";
 import { CreateRestaurantArgs } from "./types";
-import { User } from "../../schema/User";
-import { userInfo } from "../../middleware/userInfo";
 import { IGraphQLCotext } from "../../../utils/globalTypes";
-import { UserEntity } from "../../../database/entities/UserEntity";
 
 @Resolver(() => Restaurant)
 export class RestaurantResolver {
@@ -29,7 +23,7 @@ export class RestaurantResolver {
 
   @Query(() => [Restaurant], { nullable: true })
   async restaurants(): Promise<Restaurant[] | null> {
-    const restaurantsList = await RestaurantEntity.find({
+    const restaurantsList = await Restaurant.find({
       relations: ["user"],
     });
 
@@ -47,18 +41,18 @@ export class RestaurantResolver {
       city,
       description,
       website,
-      main_img,
+      mainImg,
     }: CreateRestaurantArgs,
     @Ctx() ctx: IGraphQLCotext
   ) {
-    const restaurant = RestaurantEntity.create({
+    const restaurant = Restaurant.create({
       city,
       location,
       name,
       contact,
       description,
       website,
-      main_img,
+      mainImg,
       user: ctx.currentUser!,
     });
 
